@@ -19,6 +19,11 @@
   "browserslist": [
     "last 2 versions"
   ],
+  "files": [
+    "dist/css/**/*",
+    "dist/sass/**/*",
+    "dist/js/**/*"
+  ],
   "license": "BSD-3-Clause",
   "devDependencies": {
     "@11ty/eleventy": "^0.9.0",

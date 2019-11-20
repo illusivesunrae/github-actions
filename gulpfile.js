@@ -14,15 +14,20 @@ const rollup = require('rollup');
 const sass = require('gulp-sass');
 const stylelint = require("gulp-stylelint");
 const uglify = require('gulp-uglify');
-const package = require('./package.json');
+const pkg = require('./package.json');
 
 // Create the string for the verion number banner.
 const banner = `/*!
-* ${package.name} - @version ${package.version}
+* ${pkg.name} - @version ${pkg.version}
 
 * Copyright (C) 2019 Rachel O'Connor
 * SPDX-License-Identifier: BSD-3-Clause
 */
+
+`;
+
+// Create the string for the version number banner.
+var sassBannerText = `// ${pkg.name} - @version ${pkg.version}
 
 `;
 
@@ -98,6 +103,18 @@ function lintSassBuild() {
   }));
 }
 
+// Copy all .scss files to dist folder.
+function releaseCopySass() {
+  return src("src/sass/**/*.scss").pipe(dest("dist/sass"));
+}
+
+// Add version number header to all .scss files.
+function headerSass() {
+  return src(["dist/sass/**/*.scss", "!dist/sass/libs/*"])
+    .pipe(header(sassBannerText, { package: pkg }))
+    .pipe(dest("dist/sass/"));
+}
+
 /**
  * Uses Rollup to compile ES6 down to browser JS with a UMD wrapper.
  * See more here:
@@ -111,9 +128,9 @@ function compileJSDev() {
     })
     .then(bundle => {
       return bundle.write({
-        file: './docs/js/' + package.name + '-iife.js',
+        file: './docs/js/' + pkg.name + '-iife.js',
         format: 'iife',
-        name: package.addOnName,
+        name: pkg.addOnName,
       });
     });
 }
@@ -125,15 +142,15 @@ async function compileJSBuild() {
   });
 
   await bundle.write({
-    file: './docs/js/' + package.name + '-iife.js',
+    file: './docs/js/' + pkg.name + '-iife.js',
     format: 'iife',
-    name: package.addOnName
+    name: pkg.addOnName
   });
   
   await bundle.write({
-    file: './docs/js/' + package.name + '-esm.js',
+    file: './docs/js/' + pkg.name + '-esm.js',
     format: 'es',
-    name: package.addOnName
+    name: pkg.addOnName
   });
 };
 
@@ -142,25 +159,25 @@ function copyJS() {
 }
 
 function headerJS(callback) {
-  src('./dist/js/' + package.name + '-iife.js')
-    .pipe(header(banner, { package: package }))
+  src('./dist/js/' + pkg.name + '-iife.js')
+    .pipe(header(banner, { package: pkg }))
     .pipe(dest('./dist/js/'));
 
-  src('./dist/js/' + package.name + '-esm.js')
-    .pipe(header(banner, { package: package }))
+  src('./dist/js/' + pkg.name + '-esm.js')
+    .pipe(header(banner, { package: pkg }))
     .pipe(dest('./dist/js/'));
 
-  src('./dist/js/' + package.name + '.min.js')
-    .pipe(header(banner, { package: package }))
+  src('./dist/js/' + pkg.name + '.min.js')
+    .pipe(header(banner, { package: pkg }))
     .pipe(dest('./dist/js/'));
 
   callback();
 }
 
 function minifyJS() {
-  return src('dist/js/' + package.name + '-iife.js')
+  return src('dist/js/' + pkg.name + '-iife.js')
     .pipe(uglify())
-    .pipe(rename({ basename: package.name, suffix: '.min' }))
+    .pipe(rename({ basename: pkg.name, suffix: '.min' }))
     .pipe(dest('dist/js'));
 }
 
@@ -169,7 +186,7 @@ function copyCSS() {
 }
 
 function minifyCSS() {
-  return src('dist/css/' + package.name + '.css')
+  return src('dist/css/' + pkg.name + '.css')
     .pipe(cssnano())
     .pipe(
       rename({
@@ -180,18 +197,18 @@ function minifyCSS() {
 }
 
 function prefixCSS() {
-  return src('dist/css/' + package.name + '.css')
+  return src('dist/css/' + pkg.name + '.css')
     .pipe(postcss([autoprefixer()]))
     .pipe(dest('dist/css/'));
 }
 
 function headerCSS(callback) {
-  src('dist/css/' + package.name + '.css')
-    .pipe(header(banner, { package: package }))
+  src('dist/css/' + pkg.name + '.css')
+    .pipe(header(banner, { package: pkg }))
     .pipe(dest('dist/css/'));
 
-  src('dist/css/' + package.name + '.min.css')
-    .pipe(header(banner, { package: package }))
+  src('dist/css/' + pkg.name + '.min.css')
+    .pipe(header(banner, { package: pkg }))
     .pipe(dest('dist/css/'));
 
   callback();
@@ -208,7 +225,9 @@ exports.release = series(
   copyCSS,
   prefixCSS,
   minifyCSS,
-  headerCSS
+  headerCSS,
+  releaseCopySass,
+  headerSass
 );
 
 exports.buildDocs = series(compileHTML, compileSass, compileJSDev);
