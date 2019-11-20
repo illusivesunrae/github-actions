@@ -1,11 +1,4 @@
-/*!
-* rivet-actions - @version 0.0.1
-
-* Copyright (C) 2018 The Trustees of Indiana University
-* SPDX-License-Identifier: BSD-3-Clause
-*/
-
-var MyComponent = (function (exports) {
+var MyComponent = (function () {
   'use strict';
 
   function _classCallCheck(instance, Constructor) {
@@ -30,17 +23,17 @@ var MyComponent = (function (exports) {
     return Constructor;
   }
 
-  var AddOn =
+  var Example =
   /*#__PURE__*/
   function () {
-    function AddOn(options) {
-      _classCallCheck(this, AddOn);
+    function Example(options) {
+      _classCallCheck(this, Example);
 
       this._handleClick = this._handleClick.bind(this);
       this.init(options);
     }
 
-    _createClass(AddOn, [{
+    _createClass(Example, [{
       key: "_handleClick",
       value: function _handleClick() {
         alert('Button clicked!');
@@ -52,11 +45,17 @@ var MyComponent = (function (exports) {
       }
     }]);
 
-    return AddOn;
+    return Example;
   }();
 
-  exports.AddOn = AddOn;
+  /**
+   * Copyright (C) 2019 Rachel O'Connor
+   * SPDX-License-Identifier: BSD-3-Clause
+   */
+  var index = {
+    Example: Example
+  };
 
-  return exports;
+  return index;
 
-}({}));
+}());

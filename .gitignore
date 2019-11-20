@@ -9,6 +9,7 @@ cypress/videos/
 
 # production
 /build
+/dist
 .npmrc
 
 # misc

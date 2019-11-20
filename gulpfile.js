@@ -20,7 +20,7 @@ const package = require('./package.json');
 const banner = `/*!
 * ${package.name} - @version ${package.version}
 
-* Copyright (C) 2018 The Trustees of Indiana University
+* Copyright (C) 2019 Rachel O'Connor
 * SPDX-License-Identifier: BSD-3-Clause
 */
 
@@ -106,12 +106,12 @@ function lintSassBuild() {
 function compileJSDev() {
   return rollup
     .rollup({
-      input: './src/js/' + package.name + '.js',
+      input: './src/js/index.js',
       plugins: [eslint({ throwOnError: false }), commonJS(), babel({ runtimeHelpers: true })]
     })
     .then(bundle => {
       return bundle.write({
-        file: './docs/js/' + package.name + '.js',
+        file: './docs/js/' + package.name + '-iife.js',
         format: 'iife',
         name: package.addOnName,
       });
@@ -120,12 +120,12 @@ function compileJSDev() {
 
 async function compileJSBuild() {
   const bundle = await rollup.rollup({
-    input: './src/js/' + package.name + '.js',
+    input: './src/js/index.js',
     plugins: [eslint({ throwOnError: true }), commonJS(), babel({ runtimeHelpers: true })]
   });
 
   await bundle.write({
-    file: './docs/js/' + package.name + '.js',
+    file: './docs/js/' + package.name + '-iife.js',
     format: 'iife',
     name: package.addOnName
   });
@@ -142,7 +142,11 @@ function copyJS() {
 }
 
 function headerJS(callback) {
-  src('./dist/js/' + package.name + '.js')
+  src('./dist/js/' + package.name + '-iife.js')
+    .pipe(header(banner, { package: package }))
+    .pipe(dest('./dist/js/'));
+
+  src('./dist/js/' + package.name + '-esm.js')
     .pipe(header(banner, { package: package }))
     .pipe(dest('./dist/js/'));
 
@@ -154,9 +158,9 @@ function headerJS(callback) {
 }
 
 function minifyJS() {
-  return src('dist/js/' + package.name + '.js')
+  return src('dist/js/' + package.name + '-iife.js')
     .pipe(uglify())
-    .pipe(rename({ suffix: '.min' }))
+    .pipe(rename({ basename: package.name, suffix: '.min' }))
     .pipe(dest('dist/js'));
 }
 

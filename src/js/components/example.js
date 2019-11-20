@@ -1,4 +1,5 @@
-export class AddOn {
+export default class Example {
+  
   constructor(options) {
     this._handleClick = this._handleClick.bind(this);
 
