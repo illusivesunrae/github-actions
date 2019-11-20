@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://assets.uits.iu.edu/css/rivet/1.0.0/rivet.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+  <link rel="stylesheet" href="./css/rivet-actions.css">
+  {% include "demo-styles.njk" %}
+</head>
+<body>
+  <div class="rvt-container rvt-container--center rvt-container--sophomore rvt-m-top-xxl rvt-m-bottom-xxl rvt-typeset">
+    <h1>{{ title }}</h1>
+    <p class="rvt-m-top-xxs rvt-m-bottom-xxl rvt-ts-20">{{ description }}</p>
+    {{ layoutContent | safe }}
+  </div>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+  <script src="./js/rivet-actions.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+    const myComponent = new MyComponent.AddOn({
+      id: 'my-button'
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "name": "rivet-actions",
+  "version": "0.0.1",
+  "description": "Package for testing github actions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/illusivesunrae/github-actions"
+  },
+  "main": "dist/js/rivet-actions.js",
+  "scripts": {
+    "start": "gulp buildDocs && gulp",
+    "build": "npm run clean && gulp release",
+    "clean": "rm -rf dist"
+  },
+  "author": "Rachel O'Connor",
+  "addOnName": "MyComponent",
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.9.0",
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "autoprefixer": "^9.7.2",
+    "browser-sync": "^2.26.7",
+    "eslint-config-rivet": "^2.0.0",
+    "gulp": "^4.0.2",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-header": "^2.0.9",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-stylelint": "^9.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "rivet-uits": "^1.7.2",
+    "rollup": "^1.27.2",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-eslint": "^5.1.0",
+    "stylelint-config-rivet": "^1.0.0"
+  },
+  "dependencies": {}
+}
