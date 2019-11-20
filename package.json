@@ -10,7 +10,9 @@
   "scripts": {
     "start": "gulp buildDocs && gulp",
     "build": "npm run clean && gulp release",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test": "start-server-and-test start http://localhost:3000 cypress:test",
+    "cypress:test": "cypress run"
   },
   "author": "Rachel O'Connor",
   "addOnName": "MyComponent",
@@ -41,6 +43,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-eslint": "^5.1.0",
+    "start-server-and-test": "^1.10.6",
     "stylelint-config-rivet": "^1.0.0"
   },
   "dependencies": {}
