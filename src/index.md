@@ -4,7 +4,7 @@ title: My new component
 description: This is a brief description of what my component does
 ---
 ## Getting started
-Start writing your documentation here...
+You should write things here.
 
 ## Add-on demo
 {% include demo-html.njk %}
