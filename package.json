@@ -12,7 +12,8 @@
     "build": "npm run clean && gulp release",
     "clean": "rm -rf dist",
     "test": "start-server-and-test start http://localhost:3000 cypress:test",
-    "cypress:test": "cypress run"
+    "cypress:test": "cypress run",
+    "prepublishOnly": "npm run build"
   },
   "author": "Rachel O'Connor",
   "addOnName": "MyComponent",
