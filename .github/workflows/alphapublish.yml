@@ -17,13 +17,6 @@ jobs:
       - run: npm test
       - name: Create artifact
         run: npm build
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          # Artifact name
-          name: rivet.zip
-          # Directory containing files to upload
-          path: .
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
