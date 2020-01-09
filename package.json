@@ -9,7 +9,7 @@
   "main": "dist/js/rivet-actions.js",
   "scripts": {
     "start": "gulp buildDocs && gulp",
-    "build": "npm run clean && gulp release",
+    "build": "npm run clean && gulp release && zip -r rivet.zip dist",
     "clean": "rm -rf dist",
     "test": "start-server-and-test start http://localhost:3000 cypress:test",
     "cypress:test": "cypress run",
