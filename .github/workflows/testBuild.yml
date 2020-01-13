@@ -3,7 +3,7 @@ name: Test build
 on: 
   push:
     branches:
-    - 'features/**'
+    - 'feature/**'
     - '!2.0.0-**'
 
 jobs:
