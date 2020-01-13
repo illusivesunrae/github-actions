@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Publish Alpha Release
 
 on:
   push:
@@ -15,6 +15,32 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm test
+      - name: Create artifact
+        run: npm build
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm publish --tag alpha
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+
+  create-release:
+    needs: publish-npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
       - name: Create artifact
         run: npm build
       - name: Create Release
@@ -37,17 +63,3 @@ jobs:
           asset_path: ./rivet.zip
           asset_name: rivet.zip
           asset_content_type: application/zip
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish --tag alpha
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
