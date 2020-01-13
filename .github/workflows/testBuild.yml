@@ -1,6 +1,10 @@
-name: Node CI
+name: Test build
 
-on: [push]
+on: 
+  push:
+    branches:
+    - 'features/**'
+    - '!2.0.0-**'
 
 jobs:
   build:
