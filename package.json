@@ -1,6 +1,6 @@
 {
   "name": "rivet-actions",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "description": "Package for testing github actions",
   "repository": {
     "type": "git",
