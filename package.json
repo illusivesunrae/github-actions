@@ -10,7 +10,7 @@
   "scripts": {
     "start": "gulp buildDocs && gulp",
     "build": "npm run clean && gulp release && zip -r rivet.zip dist",
-    "asset": "npm run clean && gulp release && zip -r rivet-asset.zip dist",
+    "asset:upload": "npm run clean && gulp release && zip -r rivet-gh-release.zip dist",
     "clean": "rm -rf dist",
     "test": "start-server-and-test start http://localhost:3000 cypress:test",
     "cypress:test": "cypress run",
