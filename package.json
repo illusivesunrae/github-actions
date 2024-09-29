@@ -37,7 +37,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
     "rivet-uits": "^1.7.2",
-    "rollup": "^1.27.2",
+    "rollup": "^2.79.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-eslint": "^5.1.0",
